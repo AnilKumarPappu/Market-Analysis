@@ -30,7 +30,7 @@ pivot_df = top_manufactures_data.pivot_table(
     index="Date", columns="Manufacturer", values="Value", aggfunc="sum"
 )
 
-print(pivot_df)
+# print(pivot_df)
 st.line_chart(pivot_df)
-logo = "download.png"
-st.sidebar.image(logo, width=100)
+logo = "logo3.png"
+st.sidebar.image(logo, width=150, use_column_width=True)
