@@ -51,12 +51,11 @@ gropped_data["Market Percentage"] = (gropped_data["Value"] / total_value) * 100
 
 # Styling to applied to the dataframe
 styled_df = (
-    gropped_data.style.format({"Market Percentage": "{:.2f}%"})
-    .format(
+    gropped_data.style.format({"Market Percentage": "{:.2f}%"}).format(
         {"Value": "{:,.2f}", "Volume": "{:,.2f}"}
         # precision=5, thousands=",", decimal="."
     )
-    .background_gradient(cmap="YlGnBu", subset=["Market Percentage"])
+    # .background_gradient(cmap="YlGnBu", subset=["Market Percentage"])
 )
 
 st.dataframe(styled_df)
