@@ -3,6 +3,8 @@ import pandas as pd
 from datetime import datetime
 
 # from session_state import get_session
+logo = "logo3.png"
+st.sidebar.image(logo, width=150, use_column_width=True)
 
 
 def get_session():
@@ -49,14 +51,28 @@ gropped_data = (
 total_value = gropped_data["Value"].sum()
 gropped_data["Market Percentage"] = (gropped_data["Value"] / total_value) * 100
 
+
 # Styling to applied to the dataframe
+def color_based_on_cmap(val):
+    # Define your colormap logic here based on the value
+    if val < 25:
+        return "color: red;"  # Red for lower values
+    elif val < 50:
+        return "color: yellow;"  # Yellow for mid-range values
+    else:
+        return "color: green;"  # Green for higher values
+
+
 styled_df = (
-    gropped_data.style.format({"Market Percentage": "{:.2f}%"}).format(
+    gropped_data.style.format({"Market Percentage": "{:.2f}%"})
+    .format(
         {"Value": "{:,.2f}", "Volume": "{:,.2f}"}
         # precision=5, thousands=",", decimal="."
     )
+    .applymap(lambda x: color_based_on_cmap(x), subset=["Market Percentage"])
     # .background_gradient(cmap="YlGnBu", subset=["Market Percentage"])
 )
+
 
 st.dataframe(styled_df)
 # print(styled_df)
@@ -76,5 +92,3 @@ pivot_df = top_manufactures_data.pivot_table(
 # Line chart according to top manufacturers
 # print(pivot_df)
 st.line_chart(pivot_df)
-logo = "logo3.png"
-st.sidebar.image(logo, width=150, use_column_width=True)
